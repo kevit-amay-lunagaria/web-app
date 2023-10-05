@@ -11,9 +11,10 @@ import { LoginService } from './login.service';
 })
 @Injectable()
 export class LoginComponent {
-  @ViewChild('f', { static: false }) loginForm: NgForm | undefined;
+  @ViewChild('f', { static: false }) loginForm: any;
   username: string = '';
   userpassword: string = '';
+  checkForm: boolean = false;
 
   constructor(
     private router: Router,
@@ -22,18 +23,23 @@ export class LoginComponent {
     private loginService: LoginService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.loginForm?.valid) {
+      this.checkForm = true;
+    }
+  }
 
   onLogIn() {
-    this.loginService.getNewUser(
-      this.loginForm?.value.username,
-      this.loginForm?.value.userpassword
-    );
-    this.authService.logIn();
-    alert('looged in');
-    // if (this.loginForm?.valid) {
-    //   //this.authService.logIn();
-    //   this.router.navigate(['/user'], { relativeTo: this.route });
-    // }
+    if (this.loginForm?.valid) {
+      this.loginService.getNewUser(
+        this.loginForm?.value.username,
+        this.loginForm?.value.userpassword
+      );
+      alert('logged in');
+      this.authService.logIn();
+      this.router.navigate(['/user']);
+    } else {
+      alert('Please submit valid details!!');
+    }
   }
 }

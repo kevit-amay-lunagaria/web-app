@@ -162,17 +162,6 @@ export class UsersComponent
     }
   }
 
-  // noSpace(control: FormControl): { [s: string]: boolean } {
-  //   if (control.value != null && control.value.indexOf(' ') !== -1) {
-  //     return { noWhiteSpace: true };
-  //   }
-  //   return null;
-  // }
-
-  // percentRange(control: FormControl): {[s: string]: boolean } {
-  //   if(control.value !=null)
-  // }
-
   ngOnDestroy(): void {
     //this.mySubscription.unsubscribe();
   }

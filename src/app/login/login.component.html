@@ -38,7 +38,7 @@
         <button
           class="mt-2 btn bg-primary-subtle border-0 text-dark w-100"
           type="submit"
-          [disabled]="!f.valid"
+          [disabled]="checkForm"
           (click)="onLogIn()"
         >
           Submit
