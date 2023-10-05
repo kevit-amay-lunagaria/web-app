@@ -14,11 +14,19 @@
           id="name"
           placeholder="e.g. Amay Lunagaria"
         />
+
         <span
           class="reactive-span"
-          *ngIf="userForm.get('name').touched && userForm.get('name').invalid"
-          >This field is required!</span
+          *ngIf="!userForm.get('name').valid && userForm.get('name').touched"
         >
+          <br />
+          <span
+            class="reactive-span"
+            *ngIf="userForm.get('name').errors['required']"
+          >
+            Please enter a valid name!
+          </span>
+        </span>
       </div>
       <br />
       <div class="form-group mb-3">
@@ -35,9 +43,18 @@
         />
         <span
           class="reactive-span"
-          *ngIf="userForm.get('dob').touched && userForm.get('name').invalid"
-          >This field is required!</span
+          *ngIf="!userForm.get('dob').valid && userForm.get('dob').touched"
         >
+          <span
+            class="reactive-span"
+            *ngIf="userForm.get('dob').errors['required']"
+          >
+            Please enter a valid email! </span
+          ><br />
+          <span class="reactive-span" *ngIf="userForm.get('dob').invalid">
+            Invalid Input!
+          </span>
+        </span>
       </div>
       <br />
       <div class="form-group mb-3">
@@ -51,9 +68,18 @@
         />
         <span
           class="reactive-span"
-          *ngIf="userForm.get('email').touched && userForm.get('name').invalid"
-          >This field is required!</span
+          *ngIf="!userForm.get('email').valid && userForm.get('email').touched"
         >
+          <span
+            class="reactive-span"
+            *ngIf="userForm.get('email').errors['required']"
+          >
+            Please enter a valid email! </span
+          ><br />
+          <span class="reactive-span" *ngIf="userForm.get('email').invalid">
+            Invalid Input!
+          </span>
+        </span>
       </div>
       <br />
       <div class="form-group mb-3">
@@ -65,15 +91,30 @@
           id="phonenumber"
           onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57"
           maxlength="10"
+          minlength="10"
           placeholder="e.g. 1234567890"
         />
         <span
           class="reactive-span"
           *ngIf="
-            userForm.get('phonenumber').touched && userForm.get('name').invalid
+            !userForm.get('phonenumber').valid &&
+            userForm.get('phonenumber').touched
           "
-          >This field is required!</span
         >
+          <span
+            class="reactive-span"
+            *ngIf="userForm.get('phonenumber').errors['required']"
+          >
+            Please enter a valid email!
+          </span>
+          <br />
+          <span
+            class="reactive-span"
+            *ngIf="userForm.get('phonenumber').invalid"
+          >
+            Invalid Input!
+          </span>
+        </span>
       </div>
       <div
         formGroupName="education"
@@ -93,11 +134,23 @@
           <span
             class="reactive-span"
             *ngIf="
-              userForm.get('education.institute').touched &&
-              userForm.get('name').invalid
+              !userForm.get('education.institute').valid &&
+              userForm.get('education.institute').touched
             "
-            >This field is required!</span
           >
+            <span
+              *ngIf="userForm.get('education.institute').errors['required']"
+            >
+              Please enter a valid email!
+            </span>
+            <br />
+            <span
+              class="reactive-span"
+              *ngIf="userForm.get('education.institute').invalid"
+            >
+              Invalid Input!
+            </span>
+          </span>
         </div>
         <div class="form-group mb-3 col-auto">
           <input
@@ -110,11 +163,23 @@
           <span
             class="reactive-span"
             *ngIf="
-              userForm.get('education.educationtype').touched &&
-              userForm.get('name').invalid
+              !userForm.get('education.educationtype').valid &&
+              userForm.get('education.educationtype').touched
             "
-            >This field is required!</span
           >
+            <span
+              *ngIf="userForm.get('education.educationtype').errors['required']"
+            >
+              Please enter a valid email!
+            </span>
+            <br />
+            <span
+              class="reactive-span"
+              *ngIf="userForm.get('education.educationtype').invalid"
+            >
+              Invalid Input!
+            </span>
+          </span>
         </div>
         <div class="form-group mb-3 col-auto">
           <input
@@ -123,19 +188,29 @@
             formControlName="percentage"
             id="percentage"
             maxlength="5"
-            min="60"
-            max="100"
             placeholder="e.g. 81.73"
             onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46"
           />
           <span
             class="reactive-span"
             *ngIf="
-              userForm.get('education.percentage').touched &&
-              userForm.get('name').invalid
+              !userForm.get('education.percentage').valid &&
+              userForm.get('education.percentage').touched
             "
-            >This field is required!</span
           >
+            <span
+              *ngIf="userForm.get('education.percentage').errors['required']"
+            >
+              Please enter a valid email!
+            </span>
+            <br />
+            <span
+              class="reactive-span"
+              *ngIf="userForm.get('education.percentage').invalid"
+            >
+              Invalid Input!
+            </span>
+          </span>
         </div>
       </div>
       <br />

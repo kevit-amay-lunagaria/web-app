@@ -19,7 +19,7 @@ input {
   border-radius: 1rem;
 }
 
-input.ng-touched {
+input.ng-touched.ng-invalid {
   border: 1px solid #dc143c;
 }
 

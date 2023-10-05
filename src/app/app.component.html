@@ -5,22 +5,24 @@
       style="height: 50px"
     >
       <ul class="nav nav-tabs border-0">
-        <li
-          class="ms-3"
-          role="presentation"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
-        >
-          <a class="text-decoration-none" routerLink="/">Login</a>
-        </li>
-        <li class="mx-3" role="presentation" routerLinkActive="active">
-          <a class="text-decoration-none" routerLink="/user">User Form</a>
-        </li>
-        <!-- <li role="presentation" routerLinkActive="active">
-          <a class="text-decoration-none" routerLink="/user-detail"
-            >User Detail</a
+        <li class="ms-3" role="presentation">
+          <a
+            class="text-decoration-none active"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            routerLink="/"
+            >Login</a
           >
-        </li> -->
+        </li>
+        <li class="mx-3" role="presentation">
+          <a
+            class="text-decoration-none"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            routerLink="/user"
+            >User Form</a
+          >
+        </li>
       </ul>
     </div>
   </div>

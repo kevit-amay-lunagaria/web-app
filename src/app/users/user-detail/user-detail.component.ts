@@ -33,18 +33,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     private loginService: LoginService,
     private router: Router,
     private route: ActivatedRoute
-  ) {
-    // this.mySubscription = router.events.subscribe((event) => {
-    //   if (event instanceof NavigationStart) {
-    //     console.log(event instanceof NavigationStart, 'navigation');
-    //     browserRefresh = router.navigated;
-    //     console.log(router.navigated);
-    //     if (browserRefresh) {
-    //       router.navigate(['/user-detail']);
-    //     }
-    //   }
-    // });
-  }
+  ) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe((qParams: any) => {
@@ -68,16 +57,16 @@ export class UserDetailComponent implements OnInit, OnDestroy {
         });
     }
 
-    if (this.userData.education.percentage.toString().indexOf('.') === 2) {
+    if (
+      this.userData.education.percentage.toString().indexOf('.') === 2 ||
+      (this.userData.education.percentage.toString().length == 2 &&
+        this.userData.education.percentage.toString().indexOf('0') != 0)
+    ) {
       this.showPercentSymbol = true;
     } else {
       this.showPercentSymbol = false;
     }
 
-    // if (this.loginService.showUserData() !== null) {
-    //   // this.hobbies = this.loginService.showUserData()[1];
-    //   // this.userData = this.loginService.showUserData()[0];
-    // }
     this.name = this.userData.name;
     this.dob = this.userData.dob;
     this.email = this.userData.email;
@@ -88,9 +77,6 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     this.gender = this.userData.gender;
     this.address = this.userData.address;
     this.summary = this.userData.summary;
-
-    //console.log(this.hobbies);
-    //console.log(this.userData);
     this.userData = [];
   }
 

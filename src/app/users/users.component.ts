@@ -93,7 +93,10 @@ export class UsersComponent
       education: new FormGroup({
         institute: new FormControl(institute, [Validators.required]),
         educationtype: new FormControl(educationtype, [Validators.required]),
-        percentage: new FormControl(percentage, [Validators.required]),
+        percentage: new FormControl(percentage, [
+          Validators.required,
+          Validators.maxLength(5),
+        ]),
       }),
       hobbies: new FormControl(null, []),
       gender: new FormControl(gender, [Validators.required]),
@@ -119,43 +122,33 @@ export class UsersComponent
   }
 
   onSubmit() {
-    this.formSubmitted = true;
-    if (this.allowEdit) {
-      console.log('in updated option');
+    console.log(this.userForm);
+    if (this.userForm.valid) {
+      this.formSubmitted = true;
+      if (this.allowEdit) {
+        console.log('in updated option');
 
-      this.loginService.updateUserData(
-        this.userForm.value,
-        this.selectedHobbies
-      );
-      const queryParams = { edited: true };
-      this.router.navigate(['/user-detail'], { queryParams: queryParams });
-      console.log(this.dataFromEditForm);
-    } else {
-      this.loginService.getUserData(this.userForm.value, this.selectedHobbies);
-      this.router.navigate(['/user-detail'], { relativeTo: this.route });
+        this.loginService.updateUserData(
+          this.userForm.value,
+          this.selectedHobbies
+        );
+        const queryParams = { edited: true };
+        this.router.navigate(['/user-detail'], { queryParams: queryParams });
+        console.log(this.dataFromEditForm);
+      } else {
+        this.loginService.getUserData(
+          this.userForm.value,
+          this.selectedHobbies
+        );
+        this.router.navigate(['/user-detail'], { relativeTo: this.route });
+      }
     }
-
-    // if (this.userForm.valid) {
-    //   this.loginService.getUserData(this.userForm.value, this.selectedHobbies);
-    //   this.router.navigate(['/user-detail'], { relativeTo: this.route });
-    // }
   }
 
   @HostListener('window:beforeunload', ['$event'])
-  handle() {
-    window.onbeforeunload = ($event) => {
-      return confirm('areyousure?');
-    };
+  handleReload($event: any) {
+    return ($event.returnValue = 'Your changes will not be saved');
   }
-  // handleReload($event: any) {
-  //   this.router.events.subscribe((event) => {
-  //     if (event instanceof NavigationStart) {
-  //       console.log('hello from router event');
-  //       this.router.navigate(['/other-page']);
-  //     }
-  //   });
-  //   return ($event.returnValue = 'Your changes will not be saved');
-  // }
 
   canDeactivate(): boolean | Observable<boolean> | Promise<boolean> {
     if (!this.allowEdit) {
@@ -168,6 +161,17 @@ export class UsersComponent
       return true;
     }
   }
+
+  // noSpace(control: FormControl): { [s: string]: boolean } {
+  //   if (control.value != null && control.value.indexOf(' ') !== -1) {
+  //     return { noWhiteSpace: true };
+  //   }
+  //   return null;
+  // }
+
+  // percentRange(control: FormControl): {[s: string]: boolean } {
+  //   if(control.value !=null)
+  // }
 
   ngOnDestroy(): void {
     //this.mySubscription.unsubscribe();

@@ -15,18 +15,17 @@ const routes: Routes = [
   {
     path: 'user',
     component: UsersComponent,
-    //canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     canDeactivate: [CanDeactivateGuard],
   },
   {
     path: 'user-detail',
     component: UserDetailComponent,
-    //canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: '',
     redirectTo: 'login',
-    //canActivate: [AuthGuard],
     pathMatch: 'full',
   },
   {
