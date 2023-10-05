@@ -1,0 +1,63 @@
+<div class="container">
+  <div class="d-flex justify-content-end">
+    <button
+      type="button"
+      class="btn bg-info-subtle text-dark float-end"
+      (click)="toEdit()"
+    >
+      Edit
+    </button>
+  </div>
+  <div class="row d-flex justify-content-center col-lg-10 m-auto text-center">
+    <table class="mt-5">
+      <tr>
+        <th>Name</th>
+        <td></td>
+        <td class="text">{{ name }}</td>
+      </tr>
+      <tr>
+        <th>Date of Birth</th>
+        <td></td>
+        <td class="text">{{ dob | date : "fullDate" }}</td>
+      </tr>
+      <tr>
+        <th>Email</th>
+        <td></td>
+        <td class="text">{{ email }}</td>
+      </tr>
+      <tr>
+        <th>Phone Number</th>
+        <td></td>
+        <td class="text">{{ phonenumber }}</td>
+      </tr>
+      <tr>
+        <th>Education</th>
+        <td></td>
+        <td class="text">
+          {{ institute }}({{ educationtype }}) - {{ percent
+          }}<span matSuffix *ngIf="showPercentSymbol">%</span>
+        </td>
+      </tr>
+      <tr *ngIf="hobbies.length != 0">
+        <th>Hobbies</th>
+        <td></td>
+        <td class="text">{{ hobbies }}</td>
+      </tr>
+      <tr>
+        <th>Gender</th>
+        <td></td>
+        <td class="text">{{ gender }}</td>
+      </tr>
+      <tr *ngIf="address != ''">
+        <th>Address</th>
+        <td></td>
+        <td class="text">{{ address }}</td>
+      </tr>
+      <tr *ngIf="summary != ''">
+        <th>Summary</th>
+        <td></td>
+        <td class="text">{{ summary }}</td>
+      </tr>
+    </table>
+  </div>
+</div>

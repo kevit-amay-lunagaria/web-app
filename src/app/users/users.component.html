@@ -1,0 +1,225 @@
+<div class="container p-3">
+  <!-- <div class="row">
+    <p>Name: {{ userName }}</p>
+    <p>Password: {{ userPassword }}</p>
+  </div> -->
+  <div class="row d-flex justify-content-center col-lg-10 mx-auto">
+    <form action="" [formGroup]="userForm" (ngSubmit)="onSubmit()">
+      <div class="form-group mb-4">
+        <span><span class="asterisk">*</span>Name:</span>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="name"
+          id="name"
+          placeholder="e.g. Amay Lunagaria"
+        />
+        <span
+          class="reactive-span"
+          *ngIf="userForm.get('name').touched && userForm.get('name').invalid"
+          >This field is required!</span
+        >
+      </div>
+      <br />
+      <div class="form-group mb-3">
+        <span><span class="asterisk">*</span>Date of Birth:</span>
+        <input
+          type="text"
+          class="form-control mt-1"
+          formControlName="dob"
+          id="dob"
+          placeholder="e.g. 19/09/1990"
+          onfocus="(this.type='date')"
+          onblur="(this.type='text')"
+          min="2001-01-01"
+        />
+        <span
+          class="reactive-span"
+          *ngIf="userForm.get('dob').touched && userForm.get('name').invalid"
+          >This field is required!</span
+        >
+      </div>
+      <br />
+      <div class="form-group mb-3">
+        <span><span class="asterisk">*</span>Email:</span>
+        <input
+          type="email"
+          class="form-control mt-1"
+          formControlName="email"
+          id="email"
+          placeholder="e.g. lad@gmail.com"
+        />
+        <span
+          class="reactive-span"
+          *ngIf="userForm.get('email').touched && userForm.get('name').invalid"
+          >This field is required!</span
+        >
+      </div>
+      <br />
+      <div class="form-group mb-3">
+        <span><span class="asterisk">*</span>Tel:</span>
+        <input
+          type="tel"
+          class="form-control mt-1"
+          formControlName="phonenumber"
+          id="phonenumber"
+          onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57"
+          maxlength="10"
+          placeholder="e.g. 1234567890"
+        />
+        <span
+          class="reactive-span"
+          *ngIf="
+            userForm.get('phonenumber').touched && userForm.get('name').invalid
+          "
+          >This field is required!</span
+        >
+      </div>
+      <div
+        formGroupName="education"
+        class="col-12 row align-items-center mt-5 mb-3 ms-1"
+      >
+        <span style="display: contents"
+          ><span class="asterisk">*</span>Education:</span
+        >
+        <div class="form-group mb-3 col-auto">
+          <input
+            type="text"
+            class="form-control mt-1"
+            formControlName="institute"
+            id="institute"
+            placeholder="e.g. Darshan University"
+          />
+          <span
+            class="reactive-span"
+            *ngIf="
+              userForm.get('education.institute').touched &&
+              userForm.get('name').invalid
+            "
+            >This field is required!</span
+          >
+        </div>
+        <div class="form-group mb-3 col-auto">
+          <input
+            type="text"
+            class="form-control mt-1"
+            formControlName="educationtype"
+            id="educationtype"
+            placeholder="e.g. B. Tech / HSC / SSC"
+          />
+          <span
+            class="reactive-span"
+            *ngIf="
+              userForm.get('education.educationtype').touched &&
+              userForm.get('name').invalid
+            "
+            >This field is required!</span
+          >
+        </div>
+        <div class="form-group mb-3 col-auto">
+          <input
+            type="number"
+            class="form-control mt-1"
+            formControlName="percentage"
+            id="percentage"
+            maxlength="5"
+            min="60"
+            max="100"
+            placeholder="e.g. 81.73"
+            onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46"
+          />
+          <span
+            class="reactive-span"
+            *ngIf="
+              userForm.get('education.percentage').touched &&
+              userForm.get('name').invalid
+            "
+            >This field is required!</span
+          >
+        </div>
+      </div>
+      <br />
+      <span>Hobbies:</span>
+      <div
+        class="form-group mb-3 px-3 d-inline-block"
+        *ngFor="let hobby of hobbies"
+      >
+        <input
+          type="checkbox"
+          class="mt-1"
+          formControlName="hobbies"
+          id="hobbies"
+          [value]="hobby"
+          (change)="onHobbyChange($event, hobby)"
+        />
+        {{ hobby }}
+      </div>
+      <br />
+      <div>
+        <span><span class="asterisk">*</span>Gender:</span>
+        <div
+          class="radio ps-5 my-3 d-inline-block"
+          *ngFor="let gender of genders"
+        >
+          <label>
+            <input
+              type="radio"
+              formControlName="gender"
+              class="my-2"
+              [value]="gender"
+            />
+            {{ gender }}
+          </label>
+        </div>
+        &nbsp;&nbsp;
+        <span
+          class="reactive-span"
+          *ngIf="
+            !userForm.get('gender').valid && userForm.get('gender').untouched
+          "
+          >Do select one!</span
+        >
+      </div>
+      <br />
+
+      <div class="form-group mb-3 row clearfix">
+        <div class="col-6">
+          <span>Address:</span>
+          <textarea
+            rows="3"
+            class="form-control mt-1"
+            formControlName="address"
+            id="address"
+            placeholder="Your address"
+          ></textarea>
+        </div>
+        <div class="col-6">
+          <span>Summary:</span>
+          <textarea
+            rows="3"
+            class="form-control mt-1"
+            formControlName="summary"
+            id="summary"
+            placeholder="Something about you"
+          ></textarea>
+        </div>
+      </div>
+      <div class="clearfix">
+        <button
+          type="submit"
+          class="btn bg-primary-subtle text-dark float-start"
+          [disabled]="!userForm.valid"
+        >
+          Submit
+        </button>
+        <button
+          type="button"
+          class="btn bg-danger-subtle float-end"
+          (click)="onCancel()"
+        >
+          {{ allowEdit ? "Cancel" : "Clear" }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

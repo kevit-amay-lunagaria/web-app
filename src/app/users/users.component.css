@@ -1,0 +1,43 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+input {
+  border: 0;
+  border-radius: 0px;
+  border-bottom: 1px solid #181818;
+  background-color: transparent;
+  padding-right: 0px !important;
+}
+
+input.ng-invalid.ng-touched {
+  border-bottom: 1px solid #dc134c;
+}
+
+input:focus {
+  border-radius: 5px;
+  outline: none;
+}
+
+textarea {
+  resize: none;
+}
+
+.asterisk {
+  color: #dc143c;
+}
+
+span {
+  font-weight: bold;
+}
+.reactive-span {
+  color: #dc143c;
+  font-weight: 300;
+}
