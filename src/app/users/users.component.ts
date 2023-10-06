@@ -7,14 +7,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { CanComponentDeactivate } from './can-deactivate-guard.service';
-import { Observable, Subscription, filter } from 'rxjs';
-import {
-  ActivatedRoute,
-  NavigationEnd,
-  NavigationStart,
-  Router,
-} from '@angular/router';
-import Swal from 'sweetalert2';
+import { Observable, Subscription } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-users',
@@ -122,19 +116,15 @@ export class UsersComponent
   }
 
   onSubmit() {
-    console.log(this.userForm);
     if (this.userForm.valid) {
       this.formSubmitted = true;
       if (this.allowEdit) {
-        console.log('in updated option');
-
         this.loginService.updateUserData(
           this.userForm.value,
           this.selectedHobbies
         );
         const queryParams = { edited: true };
         this.router.navigate(['/user-detail'], { queryParams: queryParams });
-        console.log(this.dataFromEditForm);
       } else {
         this.loginService.getUserData(
           this.userForm.value,
@@ -162,7 +152,5 @@ export class UsersComponent
     }
   }
 
-  ngOnDestroy(): void {
-    //this.mySubscription.unsubscribe();
-  }
+  ngOnDestroy(): void {}
 }
