@@ -7,7 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { CanComponentDeactivate } from './can-deactivate-guard.service';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -22,13 +22,17 @@ export class UsersComponent
   userPassword: string = '';
   userArray: string[] = [];
   genders: string[] = ['Male', 'Female'];
-  hobbies: string[] = ['Cricket', 'PC Gaming', 'Reading Books'];
+  hobbies: any[] = [
+    { name: 'Cricket', selected: false },
+    { name: 'PC Gaming', selected: false },
+    { name: 'Reading Books', selected: false },
+  ];
   userForm: any;
   selectedHobbies: string[] = [];
   allowEdit: boolean = false;
   dataFromEditForm: any;
   formSubmitted: boolean = false;
-  mySubscription: Subscription | undefined;
+  checkBoxChecked: boolean = false;
 
   constructor(
     private loginService: LoginService,
@@ -43,7 +47,9 @@ export class UsersComponent
     this.userPassword = this.userArray[1];
 
     this.route.queryParams.subscribe((qParams: any) => {
-      this.allowEdit = qParams.edit;
+      if (qParams.edit !== undefined) {
+        this.allowEdit = qParams.edit;
+      }
       this.initForm();
     });
   }
@@ -64,6 +70,7 @@ export class UsersComponent
     if (this.allowEdit) {
       this.loginService.showUserData().subscribe((data: any) => {
         this.dataFromEditForm = data[0];
+        this.selectedHobbies = data[1];
       });
 
       name = this.dataFromEditForm.name;
@@ -82,14 +89,17 @@ export class UsersComponent
     this.userForm = new FormGroup({
       name: new FormControl(name, Validators.required),
       dob: new FormControl(dob, [Validators.required]),
-      email: new FormControl(email, [Validators.required, Validators.email]),
+      email: new FormControl(email, [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$'),
+      ]),
       phonenumber: new FormControl(phonenumber, [Validators.required]),
       education: new FormGroup({
         institute: new FormControl(institute, [Validators.required]),
         educationtype: new FormControl(educationtype, [Validators.required]),
         percentage: new FormControl(percentage, [
           Validators.required,
-          Validators.maxLength(5),
+          this.percentLength,
         ]),
       }),
       hobbies: new FormControl(null, []),
@@ -97,13 +107,38 @@ export class UsersComponent
       address: new FormControl(address, []),
       summary: new FormControl(summary, []),
     });
+
+    if (this.allowEdit) {
+      for (let i = 0; i < this.hobbies.length; i++) {
+        if (this.selectedHobbies[i] === this.hobbies[i].name) {
+          this.hobbies[i].selected = true;
+          console.log(this.hobbies[i]);
+        }
+      }
+    }
+    console.log(this.hobbies, '--outside for loop');
   }
 
-  onHobbyChange(event: Event, hobby: string) {
+  percentLength(control: FormControl): { [s: string]: boolean } | null {
+    if (
+      (control.value != null &&
+        (control.value.toString().length > 5 ||
+          control.value.toString().length < 2)) ||
+      control.value.toString().indexOf('.') < 1 ||
+      control.value.toString().indexOf('.') > 2
+    ) {
+      return { noProperFormat: true };
+    }
+    return null;
+  }
+
+  onHobbyChange(event: Event, hobby: string, index: number) {
     if (!this.selectedHobbies.includes(hobby)) {
       this.selectedHobbies.push(hobby);
+      this.hobbies[index].selected = true;
     } else {
-      this.selectedHobbies.splice(this.selectedHobbies.indexOf(hobby), 1);
+      this.selectedHobbies.splice(index, 1);
+      this.hobbies[index].selected = false;
     }
   }
 

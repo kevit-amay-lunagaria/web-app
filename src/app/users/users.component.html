@@ -9,7 +9,7 @@
         <span><span class="asterisk">*</span>Name:</span>
         <input
           type="text"
-          class="form-control"
+          class="form-control mt-1"
           formControlName="name"
           id="name"
           placeholder="e.g. Amay Lunagaria"
@@ -49,7 +49,7 @@
             class="reactive-span"
             *ngIf="userForm.get('dob').errors['required']"
           >
-            Please enter a valid email! </span
+            Please enter a valid date! </span
           ><br />
           <span class="reactive-span" *ngIf="userForm.get('dob').invalid">
             Invalid Input!
@@ -105,7 +105,7 @@
             class="reactive-span"
             *ngIf="userForm.get('phonenumber').errors['required']"
           >
-            Please enter a valid email!
+            Please enter a valid phone number!
           </span>
           <br />
           <span
@@ -139,9 +139,10 @@
             "
           >
             <span
+              class="reactive-span"
               *ngIf="userForm.get('education.institute').errors['required']"
             >
-              Please enter a valid email!
+              Please enter a valid input!
             </span>
             <br />
             <span
@@ -168,9 +169,10 @@
             "
           >
             <span
+              class="reactive-span"
               *ngIf="userForm.get('education.educationtype').errors['required']"
             >
-              Please enter a valid email!
+              Please enter a valid input!
             </span>
             <br />
             <span
@@ -188,6 +190,7 @@
             formControlName="percentage"
             id="percentage"
             maxlength="5"
+            minlength="2"
             placeholder="e.g. 81.73"
             onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46"
           />
@@ -199,9 +202,10 @@
             "
           >
             <span
+              class="reactive-span"
               *ngIf="userForm.get('education.percentage').errors['required']"
             >
-              Please enter a valid email!
+              Please enter a valid input!
             </span>
             <br />
             <span
@@ -217,17 +221,18 @@
       <span>Hobbies:</span>
       <div
         class="form-group mb-3 px-3 d-inline-block"
-        *ngFor="let hobby of hobbies"
+        *ngFor="let hobby of hobbies; let i = index"
       >
         <input
           type="checkbox"
           class="mt-1"
           formControlName="hobbies"
           id="hobbies"
-          [value]="hobby"
-          (change)="onHobbyChange($event, hobby)"
+          [value]="hobby.name"
+          (change)="onHobbyChange($event, hobby.name, i)"
+          [checked]="hobby.selected"
         />
-        {{ hobby }}
+        {{ hobby.name }}
       </div>
       <br />
       <div>
