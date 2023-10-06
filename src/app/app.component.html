@@ -2,26 +2,32 @@
   <div class="row">
     <div
       class="col-xs-12 col-sm-10 col-lg-12 col-md-12 col-sm-offset-1 col-md-offset-2 d-flex align-items-center"
-      style="height: 50px"
+      style="height: 60px"
     >
       <ul class="nav nav-tabs border-0">
         <li class="ms-3" role="presentation">
           <a
-            class="text-decoration-none active"
-            routerLinkActive="active"
+            class="py-2 px-3"
+            [routerLinkActive]="'active'"
             [routerLinkActiveOptions]="{ exact: true }"
-            routerLink="/"
-            >Login</a
+            routerLink="/login"
           >
+            Login
+          </a>
         </li>
         <li class="mx-3" role="presentation">
+          <a class="py-2 px-3" routerLinkActive="active" routerLink="/user">
+            User Form
+          </a>
+        </li>
+        <li class="" role="presentation">
           <a
-            class="text-decoration-none"
+            class="py-2 px-3"
             routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: true }"
-            routerLink="/user"
-            >User Form</a
+            routerLink="/user-detail"
           >
+            User Detail
+          </a>
         </li>
       </ul>
     </div>

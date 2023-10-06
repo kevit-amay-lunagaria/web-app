@@ -38,7 +38,6 @@ export class UserDetailComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.route.queryParams.subscribe((qParams: any) => {
       this.formEdited = qParams.edited;
-      console.log(this.formEdited);
     });
 
     if (this.formEdited) {
@@ -59,7 +58,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
 
     if (
       this.userData.education.percentage.toString().indexOf('.') === 2 ||
-      (this.userData.education.percentage.toString().length == 2 &&
+      (this.userData.education.percentage.toString().length <= 2 &&
         this.userData.education.percentage.toString().indexOf('0') != 0)
     ) {
       this.showPercentSymbol = true;

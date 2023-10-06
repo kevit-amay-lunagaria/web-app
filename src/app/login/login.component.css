@@ -26,3 +26,11 @@ input.ng-touched.ng-invalid {
 .display-none {
   display: none;
 }
+
+.asterisk {
+  color: #dc143c;
+}
+
+span {
+  font-weight: bold;
+}

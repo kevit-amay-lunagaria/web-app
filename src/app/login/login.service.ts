@@ -14,7 +14,6 @@ export class LoginService {
   }
 
   getUserData(values: any, hobbies: string[]) {
-    //console.log(values, hobbies);
     this.userData.push(values);
     this.userData.push(hobbies);
   }
@@ -25,7 +24,6 @@ export class LoginService {
   }
 
   updateUserData(values: any, hobbies: string[]) {
-    //console.log('updated' + values, hobbies);
     this.userData.length = 0;
     this.userData.push(values);
     this.userData.push(hobbies);

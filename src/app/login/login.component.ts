@@ -35,7 +35,7 @@ export class LoginComponent {
         this.loginForm?.value.username,
         this.loginForm?.value.userpassword
       );
-      alert('logged in');
+      alert('You have logged in!!');
       this.authService.logIn();
       this.router.navigate(['/user']);
     } else {
