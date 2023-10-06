@@ -9,6 +9,7 @@ import {
 import { CanComponentDeactivate } from './can-deactivate-guard.service';
 import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
+import { __values } from 'tslib';
 
 @Component({
   selector: 'app-users',
@@ -84,10 +85,25 @@ export class UsersComponent
       gender = this.dataFromEditForm.gender;
       address = this.dataFromEditForm.address;
       summary = this.dataFromEditForm.summary;
+
+      if (this.selectedHobbies.length) {
+        for (let i = 0; i < this.selectedHobbies.length; i++) {
+          console.log(
+            this.selectedHobbies[i] === this.hobbies[i].name,
+            'for loop check'
+          );
+          for (let j = 0; j < this.hobbies.length; j++) {
+            if (this.selectedHobbies[i] === this.hobbies[j].name) {
+              this.hobbies[j].selected = true;
+              console.log(this.hobbies[j]);
+            }
+          }
+        }
+      }
     }
 
     this.userForm = new FormGroup({
-      name: new FormControl(name, Validators.required),
+      name: new FormControl(name, [Validators.required, this.noSpace]),
       dob: new FormControl(dob, [Validators.required]),
       email: new FormControl(email, [
         Validators.required,
@@ -108,15 +124,17 @@ export class UsersComponent
       summary: new FormControl(summary, []),
     });
 
-    if (this.allowEdit) {
-      for (let i = 0; i < this.hobbies.length; i++) {
-        if (this.selectedHobbies[i] === this.hobbies[i].name) {
-          this.hobbies[i].selected = true;
-          console.log(this.hobbies[i]);
-        }
-      }
-    }
-    console.log(this.hobbies, '--outside for loop');
+    console.log(this.hobbies);
+
+    // if (this.allowEdit) {
+    //   for (let i = 0; i < this.hobbies.length; i++) {
+    //     console.log(this.selectedHobbies[i] === this.hobbies[i].name);
+    //     if (this.selectedHobbies[i] === this.hobbies[i].name) {
+    //       this.hobbies[i].selected = true;
+    //       console.log(this.hobbies[i]);
+    //     }
+    //   }
+    // }
   }
 
   percentLength(control: FormControl): { [s: string]: boolean } | null {
@@ -132,6 +150,13 @@ export class UsersComponent
     return null;
   }
 
+  noSpace(control: FormControl): { [s: string]: boolean } | null {
+    if (control.value != null && control.value.indexOf(' ') !== -1) {
+      return { noWhiteSpace: true };
+    }
+    return null;
+  }
+
   onHobbyChange(event: Event, hobby: string, index: number) {
     if (!this.selectedHobbies.includes(hobby)) {
       this.selectedHobbies.push(hobby);
@@ -140,6 +165,7 @@ export class UsersComponent
       this.selectedHobbies.splice(index, 1);
       this.hobbies[index].selected = false;
     }
+    console.log(this.hobbies);
   }
 
   onCancel() {

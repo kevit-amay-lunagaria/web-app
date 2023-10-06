@@ -26,6 +26,12 @@
           >
             Please enter a valid name!
           </span>
+          <br />
+          <span
+            class="reactive-span"
+            *ngIf="userForm.get('name').errors.noWhiteSpace"
+            >No white space allowed!</span
+          >
         </span>
       </div>
       <br />
@@ -227,10 +233,9 @@
           type="checkbox"
           class="mt-1"
           formControlName="hobbies"
-          id="hobbies"
           [value]="hobby.name"
           (change)="onHobbyChange($event, hobby.name, i)"
-          [checked]="hobby.selected"
+          [checked]="hobbies[i].selected"
         />
         {{ hobby.name }}
       </div>
