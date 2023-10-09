@@ -88,10 +88,6 @@ export class UsersComponent
 
       if (this.selectedHobbies.length) {
         for (let i = 0; i < this.selectedHobbies.length; i++) {
-          console.log(
-            this.selectedHobbies[i] === this.hobbies[i].name,
-            'for loop check'
-          );
           for (let j = 0; j < this.hobbies.length; j++) {
             if (this.selectedHobbies[i] === this.hobbies[j].name) {
               this.hobbies[j].selected = true;
@@ -158,14 +154,15 @@ export class UsersComponent
   }
 
   onHobbyChange(event: Event, hobby: string, index: number) {
+    console.log(this.selectedHobbies, 'in on hobby changes');
     if (!this.selectedHobbies.includes(hobby)) {
       this.selectedHobbies.push(hobby);
       this.hobbies[index].selected = true;
     } else {
-      this.selectedHobbies.splice(index, 1);
+      this.selectedHobbies.splice(this.selectedHobbies.indexOf(hobby), 1);
       this.hobbies[index].selected = false;
+      console.log(this.selectedHobbies);
     }
-    console.log(this.hobbies);
   }
 
   onCancel() {
