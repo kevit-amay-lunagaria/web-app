@@ -37,7 +37,7 @@ export class LoginComponent {
       );
       alert('You have logged in!!');
       this.authService.logIn();
-      this.router.navigate(['/user']);
+      this.router.navigate(['/user'], { relativeTo: this.route });
     } else {
       alert('Please submit valid details!!');
     }

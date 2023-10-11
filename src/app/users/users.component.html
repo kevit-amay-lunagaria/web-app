@@ -232,7 +232,7 @@
         <input
           type="checkbox"
           class="mt-1"
-          formControlName="hobbies"
+          [formControlName]="hobby.name"
           [value]="hobby.name"
           (change)="onHobbyChange($event, hobby.name, i)"
           [checked]="hobbies[i].selected"

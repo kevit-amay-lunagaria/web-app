@@ -27,7 +27,6 @@ export class UserDetailComponent implements OnInit, OnDestroy {
   gender: string = '';
   address: string = '';
   summary: string = '';
-  //mySubscription: Subscription | undefined;
 
   constructor(
     private loginService: LoginService,

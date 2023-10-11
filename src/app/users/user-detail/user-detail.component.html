@@ -41,7 +41,7 @@
       <tr *ngIf="hobbies.length != 0">
         <th>Hobbies</th>
         <td></td>
-        <td class="text">{{ hobbies }}</td>
+        <td class="text">{{ hobbies.join(", ") }}</td>
       </tr>
       <tr>
         <th>Gender</th>

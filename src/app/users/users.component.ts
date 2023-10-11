@@ -1,6 +1,7 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { LoginService } from '../login/login.service';
 import {
+  FormArray,
   FormBuilder,
   FormControl,
   FormGroup,
@@ -26,7 +27,7 @@ export class UsersComponent
   hobbies: any[] = [
     { name: 'Cricket', selected: false },
     { name: 'PC Gaming', selected: false },
-    { name: 'Reading Books', selected: false },
+    { name: 'Reading', selected: false },
   ];
   userForm: any;
   selectedHobbies: string[] = [];
@@ -63,7 +64,7 @@ export class UsersComponent
     let institute = '';
     let educationtype = '';
     let percentage = '';
-    let hobbies = '';
+    let hobbies = [];
     let address = '';
     let summary = '';
     let gender = '';
@@ -81,7 +82,7 @@ export class UsersComponent
       institute = this.dataFromEditForm.education.institute;
       educationtype = this.dataFromEditForm.education.educationtype;
       percentage = this.dataFromEditForm.education.percentage;
-      hobbies = hobbies;
+      hobbies = [];
       gender = this.dataFromEditForm.gender;
       address = this.dataFromEditForm.address;
       summary = this.dataFromEditForm.summary;
@@ -91,7 +92,6 @@ export class UsersComponent
           for (let j = 0; j < this.hobbies.length; j++) {
             if (this.selectedHobbies[i] === this.hobbies[j].name) {
               this.hobbies[j].selected = true;
-              console.log(this.hobbies[j]);
             }
           }
         }
@@ -114,23 +114,13 @@ export class UsersComponent
           this.percentLength,
         ]),
       }),
-      hobbies: new FormControl(null, []),
+      Cricket: new FormControl(this.hobbies[0].selected, []),
+      'PC Gaming': new FormControl(this.hobbies[1].selected, []),
+      Reading: new FormControl(this.hobbies[2].selected, []),
       gender: new FormControl(gender, [Validators.required]),
       address: new FormControl(address, []),
       summary: new FormControl(summary, []),
     });
-
-    console.log(this.hobbies);
-
-    // if (this.allowEdit) {
-    //   for (let i = 0; i < this.hobbies.length; i++) {
-    //     console.log(this.selectedHobbies[i] === this.hobbies[i].name);
-    //     if (this.selectedHobbies[i] === this.hobbies[i].name) {
-    //       this.hobbies[i].selected = true;
-    //       console.log(this.hobbies[i]);
-    //     }
-    //   }
-    // }
   }
 
   percentLength(control: FormControl): { [s: string]: boolean } | null {
@@ -154,20 +144,18 @@ export class UsersComponent
   }
 
   onHobbyChange(event: Event, hobby: string, index: number) {
-    console.log(this.selectedHobbies, 'in on hobby changes');
     if (!this.selectedHobbies.includes(hobby)) {
       this.selectedHobbies.push(hobby);
       this.hobbies[index].selected = true;
     } else {
       this.selectedHobbies.splice(this.selectedHobbies.indexOf(hobby), 1);
       this.hobbies[index].selected = false;
-      console.log(this.selectedHobbies);
     }
   }
 
   onCancel() {
     if (this.allowEdit) {
-      this.router.navigate(['/user-detail']);
+      this.router.navigate(['/user-detail'], { relativeTo: this.route });
     } else {
       this.userForm.reset();
     }
