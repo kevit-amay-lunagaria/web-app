@@ -1,7 +1,6 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { LoginService } from '../login/login.service';
 import {
-  FormArray,
   FormBuilder,
   FormControl,
   FormGroup,
@@ -10,7 +9,6 @@ import {
 import { CanComponentDeactivate } from './can-deactivate-guard.service';
 import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { __values } from 'tslib';
 
 @Component({
   selector: 'app-users',
